@@ -98,6 +98,7 @@ public class ScreenMediaRecorder extends MediaProjection.Callback {
     private final Handler mHandler;
     private final int mDisplayId;
     private String mAvcProfileLevel;
+    private int mMaxRefreshRate;
 
     private Context mContext;
     ScreenMediaRecorderListener mListener;
@@ -121,6 +122,8 @@ public class ScreenMediaRecorder extends MediaProjection.Callback {
         mScreenRecordingStartTimeStore = screenRecordingStartTimeStore;
         mAvcProfileLevel = mContext.getResources().getString(
                 com.android.systemui.res.R.string.config_screenRecorderAVCProfileLevel);
+        mMaxRefreshRate = mContext.getResources().getInteger(
+                com.android.systemui.res.R.integer.config_screenRecorderMaxFramerate);
     }
 
     private void prepare() throws IOException, RemoteException, RuntimeException {
@@ -165,6 +168,7 @@ public class ScreenMediaRecorder extends MediaProjection.Callback {
         Display display = dm.getDisplay(mDisplayId);
         display.getRealMetrics(metrics);
         int refreshRate = (int) display.getRefreshRate();
+        if (mMaxRefreshRate != 0 && refreshRate > mMaxRefreshRate) refreshRate = mMaxRefreshRate;
         int[] dimens = getSupportedSize(metrics.widthPixels, metrics.heightPixels, refreshRate);
         int width = dimens[0];
         int height = dimens[1];
