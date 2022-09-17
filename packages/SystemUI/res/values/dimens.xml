@@ -2114,4 +2114,7 @@
     <dimen name="volume_panel_slice_vertical_padding">8dp</dimen>
     <dimen name="volume_panel_slice_horizontal_padding">24dp</dimen>
     <!-- Volume end -->
+
+    <!-- The height of the WiFi toggle layout in Internet panel -->
+     <dimen name="internet_dialog_wifi_toggle_height">56dp</dimen>
 </resources>
