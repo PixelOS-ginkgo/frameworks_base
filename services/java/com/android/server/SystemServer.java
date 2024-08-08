@@ -164,6 +164,7 @@ import com.android.server.criticalevents.CriticalEventLog;
 import com.android.server.devicepolicy.DevicePolicyManagerService;
 import com.android.server.devicestate.DeviceStateManagerService;
 import com.android.server.display.DisplayManagerService;
+import com.android.server.display.FreeformService;
 import com.android.server.display.color.ColorDisplayService;
 import com.android.server.dreams.DreamManagerService;
 import com.android.server.emergency.EmergencyAffordanceService;
@@ -1907,6 +1908,11 @@ public final class SystemServer implements Dumpable {
         if (mFactoryTestMode == FactoryTest.FACTORY_TEST_LOW_LEVEL) {
             dpms = null;
         } else {
+            
+            t.traceBegin("FreeformService");
+            mSystemServiceManager.startService(FreeformService.class);
+            t.traceEnd();
+
             t.traceBegin("StartLockSettingsService");
             try {
                 mSystemServiceManager.startService(LockSettingsService.Lifecycle.class);
