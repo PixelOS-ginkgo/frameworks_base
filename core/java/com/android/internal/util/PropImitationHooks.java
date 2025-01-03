@@ -235,7 +235,7 @@ public class PropImitationHooks {
             case PACKAGE_VELVET:
             case PACKAGE_WALLPAPER:
             case PACKAGE_WALLPAPEREFFECTS:
-                if (SystemProperties.get("ro.build.characteristics", "").contains("tablet")) {
+                if (SystemProperties.get("ro.build.characteristics").equals("tablet")) {
                     dlog("Spoofing Pixel Tablet for: " + packageName + " process: " + processName);
                     setProps(sPixelTabletProps);
                 } else {
