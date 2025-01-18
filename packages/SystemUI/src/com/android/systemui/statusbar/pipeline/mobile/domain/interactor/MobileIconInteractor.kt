@@ -140,8 +140,6 @@ interface MobileIconInteractor {
     /** True when in carrier network change mode */
     val carrierNetworkChangeActive: StateFlow<Boolean>
 
-    val shouldShowFourgIcon: StateFlow<Boolean>
-
     /** True when VoLTE/VONR available */
     val isMobileHd: StateFlow<Boolean>
 
@@ -200,30 +198,6 @@ class MobileIconInteractorImpl(
                         }
                     }
                 Dependency.get(TunerService::class.java).addTunable(callback, DATA_DISABLED_ICON)
-
-                awaitClose { Dependency.get(TunerService::class.java).removeTunable(callback) }
-            }
-            .stateIn(
-                scope,
-                started = SharingStarted.WhileSubscribed(),
-                true
-            )
-
-    private final val SHOW_FOURG_ICON: String =
-            "system:" + Settings.System.SHOW_FOURG_ICON;
-
-    override val shouldShowFourgIcon: StateFlow<Boolean> =
-        conflatedCallbackFlow {
-                val callback =
-                    object : TunerService.Tunable {
-                        override fun onTuningChanged(key: String, newValue: String?) {
-                            when (key) {
-                                SHOW_FOURG_ICON -> 
-                                    trySend(TunerService.parseIntegerSwitch(newValue, false))
-                            }
-                        }
-                    }
-                Dependency.get(TunerService::class.java).addTunable(callback, SHOW_FOURG_ICON)
 
                 awaitClose { Dependency.get(TunerService::class.java).removeTunable(callback) }
             }
