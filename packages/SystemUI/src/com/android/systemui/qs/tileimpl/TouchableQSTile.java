@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2024 The Android Open Source Project
+ * Copyright (C) 2022 StatiXOS
+ * Copyright (C) 2024 The LibreMobileOS Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +15,16 @@
  * limitations under the License.
  */
 
-package com.android.systemui.volume.domain.model
+package com.android.systemui.qs.tileimpl;
 
-enum class VolumePanelRoute {
-    COMPOSE_VOLUME_PANEL,
-    SETTINGS_VOLUME_PANEL,
-    SYSTEM_UI_VOLUME_PANEL,
-    ACTION_APP_VOLUME,
+import android.view.View;
+
+// For use with SliderQSTileViewImpl
+public interface TouchableQSTile {
+
+    View.OnTouchListener getTouchListener();
+
+    String getSettingsSystemKey();
+
+    float getSettingsDefaultValue();
 }
